@@ -3,6 +3,7 @@ import router from './routes.js';
 import expressEjsLayouts from 'express-ejs-layouts';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import dotenv from 'dotenv';
 // import cors from 'cors';
 
 const app = express();
@@ -13,6 +14,8 @@ app.use(expressEjsLayouts);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+dotenv.config();
 
 app.use(
     session({
