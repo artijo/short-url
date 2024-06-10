@@ -2,7 +2,7 @@ import express from 'express';
 import router from './routes.js';
 import expressEjsLayouts from 'express-ejs-layouts';
 import bodyParser from 'body-parser';
-import session from 'express-session';
+import session from 'cookie-session';
 import dotenv from 'dotenv';
 // import cors from 'cors';
 
@@ -22,6 +22,7 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
+        cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
     })
 );
 
