@@ -7,9 +7,9 @@ import { checkAuth } from './Middleware.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('index');
-});
+// router.get('/', (req, res) => {
+//     res.render('index');
+// });
 
 
 router.get('/login', async (req, res) => {
