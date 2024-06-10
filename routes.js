@@ -1,7 +1,6 @@
 import express from 'express';
-import supabase from './lib/supabase.js';
 
-import { getAllLinks, getLinkBySlug } from './controllers/linksController.js';
+import { createLink, getLinkBySlug } from './controllers/linksController.js';
 import { dashboard, login } from './controllers/adminController.js';
 
 import { checkAuth } from './Middleware.js';
@@ -18,7 +17,7 @@ router.get('/login', async (req, res) => {
 });
 router.post('/login', login);
 
-router.get('/links', getAllLinks);
+router.post('/link', createLink);
 router.get('/admin', checkAuth ,dashboard);
 router.get('/:slug', getLinkBySlug);
 

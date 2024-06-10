@@ -1,17 +1,30 @@
 import supabase from '../lib/supabase.js';
-
-const getAllLinks = async (req, res) => {
-    const { data, error } = await supabase
-  .from('links')
-  .select()
-  console.log(data)
-};
+import { makeSlug } from '../helper.js';
 
 const createLink = async (req, res) => {
+  let { title ,slug, url } = req.body;
+  if (!title || !url) {
+    return res.status(400).json({ error: 'Please fill all the fields' });
+  }
+  if(url.indexOf('http') !== 0 && url.indexOf('https') !== 0) url = `https://${url}` ;
+  if (!slug) slug = makeSlug(4);
+  try{
     const { data, error } = await supabase
+    .from('links')
+    .select()
+    .eq('slug', slug);
+    if(data.length > 0){
+      return res.status(400).json({ error: 'Slug already exists' });
+    }
+    await supabase
   .from('links')
-  .insert(req.body)
-  console.log(data)
+  .insert([{ title, slug, url }])
+  res.redirect('/admin');
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+
+
 };
 
 const updateLink = async (req, res) => {
@@ -41,4 +54,4 @@ const getLinkBySlug = async (req, res) => {
   res.redirect(data[0].url);
 };
 
-export { getAllLinks, createLink, updateLink, deleteLink, getLinkBySlug };
+export { createLink, updateLink, deleteLink, getLinkBySlug };
