@@ -9,6 +9,7 @@
     "start:tailwind": "npx tailwindcss -i ./public/global.css -o ./public/tw.css --watch",
     "dev": "npm-run-all --parallel start:server start:tailwind",
     "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "author": "",
   "license": "ISC",
